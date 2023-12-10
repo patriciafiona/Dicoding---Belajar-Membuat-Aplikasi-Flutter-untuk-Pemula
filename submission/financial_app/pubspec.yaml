@@ -30,6 +30,7 @@ flutter:
     - assets/lottie/app_logo_animation.json
     - assets/image/abstract_line.png
     - assets/image/finance_logo.png
+    - assets/image/pattern_01.png
 
   fonts:
     - family: "Nunito"

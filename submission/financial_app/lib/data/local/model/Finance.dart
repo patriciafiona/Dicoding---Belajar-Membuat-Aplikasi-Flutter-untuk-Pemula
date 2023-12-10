@@ -1,7 +1,7 @@
 class Finance{
   final int id;
   final double amount;
-  final int category;
+  final String category;
   final String description;
   final String dateTime;
 
@@ -22,7 +22,6 @@ class Finance{
 
   Map<String, Object> toMap(){
     return {
-      'id':id,
       'amount':amount,
       'category':category,
       'description': description,
