@@ -1,11 +1,13 @@
 import 'dart:ffi';
 
 import 'package:financial_app/data/local/model/Finance.dart';
+import 'package:financial_app/ui/screen/main/MainScreen.dart';
 import 'package:financial_app/ui/widget/LottieAnimation.dart';
 import 'package:financial_app/ui/widget/TextWithIcon.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../../../data/local/sqlite_service.dart';
 import '../../../utils/CurrencyInputFormatter.dart';
@@ -29,7 +31,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: purpleHoneycreeper,
+        backgroundColor: purplishBlue,
         centerTitle: true,
         iconTheme: const IconThemeData(
           color: Colors.white, //change your color here
@@ -38,12 +40,12 @@ class _AddDataScreenState extends State<AddDataScreen> {
           'Add Data',
           style: TextStyle(
               color: Colors.white,
-              fontSize: 24.0,
+              fontSize: 18.0,
               fontWeight: FontWeight.bold
           ),
         ),
       ),
-      body: isLoading ? LoadingContainer() : MainContent(type: widget.type, callback: (val) => setState(() => isLoading = val))
+      body: isLoading ? LoadingContainer() : MainContent(context: context, type: widget.type, callback: (val) => setState(() => isLoading = val))
     );
   }
 }
@@ -69,10 +71,11 @@ class LoadingContainer extends StatelessWidget {
 typedef void BoolCallback(bool val);
 
 class MainContent extends StatefulWidget {
+  final BuildContext context;
   final String type;
   final BoolCallback callback;
 
-  const MainContent({super.key, required this.type, required this.callback});
+  const MainContent({super.key, required this.type, required this.callback, required this.context});
 
   @override
   State<MainContent> createState() => _MainContentState();
@@ -131,7 +134,7 @@ class _MainContentState extends State<MainContent> {
           child: Image.asset(
             "assets/image/pattern_01.png",
             width: double.infinity,
-            height: 300,
+            height: 250,
             repeat: ImageRepeat.repeat,
             opacity: const AlwaysStoppedAnimation(.2),
           ),
@@ -143,7 +146,7 @@ class _MainContentState extends State<MainContent> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: Container(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
@@ -169,7 +172,7 @@ class _MainContentState extends State<MainContent> {
                   )
               ),
               Expanded(
-                flex: 8,
+                flex: 7,
                 child: Container(
                   padding: const EdgeInsets.all(16.0),
                   width: double.infinity,
@@ -306,10 +309,12 @@ class _MainContentState extends State<MainContent> {
                                 await SqliteService.insertToDatabase(data);
 
                                 //Go to Home screen
-                                Future.delayed(const Duration(seconds: 2), () {
-                                  widget.callback(false);
-                                  Navigator.pop(context);
-                                });
+                                await Future.delayed(const Duration(milliseconds: 1500));
+                                widget.callback(false);
+                                await Navigator.push(
+                                    widget.context,
+                                    PageTransition(type: PageTransitionType.fade, child: MainScreen())
+                                );
                               },
                               child: const Text('Submit'),
                             ),

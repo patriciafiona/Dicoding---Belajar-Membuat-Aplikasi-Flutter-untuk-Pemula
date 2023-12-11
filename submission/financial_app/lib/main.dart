@@ -1,6 +1,7 @@
 import 'package:financial_app/ui/screen/main/MainScreen.dart';
 import 'package:financial_app/ui/screen/splash/SplashScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,9 +21,6 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Nunito',
       ),
       home: const SplashScreen(),
-      routes: {
-        "/main": (_) => const MainScreen(),
-      },
     );
   }
 }

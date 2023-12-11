@@ -1,6 +1,8 @@
+import 'package:financial_app/ui/screen/main/MainScreen.dart';
 import 'package:flutter/material.dart';
-import '../../../utils/CustomColors.dart';
 import 'dart:async';
+
+import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -9,7 +11,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, "/main");
+      Navigator.pushReplacement(context, PageTransition(type: PageTransitionType.fade, child: const MainScreen()));
     });
 
     return const Scaffold(

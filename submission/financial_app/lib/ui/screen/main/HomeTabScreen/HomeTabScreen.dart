@@ -1,7 +1,9 @@
 import 'package:financial_app/ui/screen/AddDataScreen/AddDataScreen.dart';
+import 'package:financial_app/ui/screen/cardDetail/CardDetailScreen.dart';
 import 'package:financial_app/ui/widget/RoundedButtonWithText.dart';
 import 'package:financial_app/utils/Utils.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../../../utils/CustomColors.dart';
 import '../../../widget/TextWithIcon.dart';
 
@@ -71,9 +73,14 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                           buttonColor: Colors.white,
                           iconColor: purpleHoneycreeper,
                           onPressAction: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return const AddDataScreen(type: "income");
-                            }));
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    type: PageTransitionType.scale,
+                                    alignment: Alignment.bottomCenter,
+                                    child: const AddDataScreen(type: "income")
+                                )
+                            );
                           }
                       ),
                       RoundedButtonWithText(
@@ -83,9 +90,14 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                           buttonColor: Colors.white,
                           iconColor: purpleHoneycreeper,
                           onPressAction: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) {
-                              return const AddDataScreen(type: "outcome");
-                            }));
+                            Navigator.push(
+                              context,
+                                PageTransition(
+                                    type: PageTransitionType.scale,
+                                    alignment: Alignment.bottomCenter,
+                                    child: const AddDataScreen(type: "outcome")
+                                )
+                            );
                           }
                       ),
                       RoundedButtonWithText(
@@ -94,7 +106,16 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                           textColor: Colors.white,
                           buttonColor: Colors.white,
                           iconColor: purpleHoneycreeper,
-                          onPressAction: () {}
+                          onPressAction: () {
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    type: PageTransitionType.scale,
+                                    alignment: Alignment.bottomCenter,
+                                    child: const CardDetailScreen()
+                                )
+                            );
+                          }
                       ),
                     ],
                   ),

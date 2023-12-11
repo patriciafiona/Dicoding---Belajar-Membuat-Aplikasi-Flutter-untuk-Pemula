@@ -16,6 +16,7 @@ dependencies:
   intl: ^0.18.0
   sqflite: ^2.3.0
   syncfusion_flutter_datepicker: ^23.2.7
+  page_transition: "^2.1.0"
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +53,9 @@ flutter:
           weight: 600
         - asset: assets/fonts/Nunito-Bold.ttf
           weight: 700
+    - family: "OCR-A"
+      fonts:
+        - asset: assets/fonts/OCR_A_Regular.ttf
 
 
   # To add assets to your application, add an assets section, like this:
