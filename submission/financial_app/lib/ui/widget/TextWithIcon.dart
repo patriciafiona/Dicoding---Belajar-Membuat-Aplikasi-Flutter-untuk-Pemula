@@ -20,9 +20,12 @@ class TextWithIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
-          icon,
-          color: iconColor,
+        Container(
+          child: Icon(
+            icon,
+            color: iconColor,
+            size: textSize,
+          ),
         ),
         const SizedBox(width: 8),
         Text(

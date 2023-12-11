@@ -33,7 +33,7 @@ class _RoundedButtonWithTextState extends State<RoundedButtonWithText> {
           onPressed: () => widget.onPressAction(),
           style: ElevatedButton.styleFrom(
             shape: const CircleBorder(),
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(15),
             backgroundColor: widget.buttonColor, // <-- Button color
             foregroundColor: widget.iconColor, // <-- Splash color
           ),

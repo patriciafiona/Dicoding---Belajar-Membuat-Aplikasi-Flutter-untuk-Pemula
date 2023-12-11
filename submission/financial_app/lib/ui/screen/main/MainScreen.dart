@@ -48,7 +48,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
             'My Finance',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 24.0,
+            fontSize: 18.0,
             fontWeight: FontWeight.bold
           ),
         ),
@@ -61,7 +61,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
             shape: const CircleBorder(),
             child: const Icon(
               Icons.notifications,
-              size: 25.0,
+              size: 18.0,
               color: Colors.white,
             ),
           )

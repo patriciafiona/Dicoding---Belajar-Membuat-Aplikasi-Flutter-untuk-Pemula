@@ -3,7 +3,7 @@ description: "App for tracking your income & expense"
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.3.0-209.0.dev <4.0.0'
+  sdk: '>=3.2.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -22,6 +22,13 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^3.0.0
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
 flutter:
   uses-material-design: true
@@ -31,6 +38,7 @@ flutter:
     - assets/image/abstract_line.png
     - assets/image/finance_logo.png
     - assets/image/pattern_01.png
+    - assets/icon/icon.png
 
   fonts:
     - family: "Nunito"

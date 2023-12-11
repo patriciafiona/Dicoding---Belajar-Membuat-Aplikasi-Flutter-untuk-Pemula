@@ -36,7 +36,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                   "\$0",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 42,
+                      fontSize: 32,
                       fontWeight: FontWeight.bold
                   ),
                 ),
@@ -104,7 +104,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                         icon: Icons.graphic_eq,
                         iconColor: Colors.white,
                         text: "Tracker",
-                        textSize: 24,
+                        textSize: 18,
                         textColor: Colors.white
                     )
                   ),
@@ -114,7 +114,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                       "Month",
                       style: TextStyle(
                         color: Colors.white54,
-                        fontSize: 14
+                        fontSize: 12
                       ),
                     ),
                   ),
@@ -122,7 +122,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     returnCurrentMonth(),
                     style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 18
+                        fontSize: 14
                     ),
                   ),
 
