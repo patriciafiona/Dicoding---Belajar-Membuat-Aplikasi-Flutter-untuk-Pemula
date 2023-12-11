@@ -1,10 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+import '../../../data/local/sqlite_service.dart';
 import '../../../utils/CustomColors.dart';
 import '../../widget/TextWithIcon.dart';
 
-class CardDetailScreen extends StatelessWidget {
+class CardDetailScreen extends StatefulWidget {
   const CardDetailScreen({super.key});
+
+  @override
+  State<CardDetailScreen> createState() => _CardDetailScreenState();
+}
+
+class _CardDetailScreenState extends State<CardDetailScreen> {
+  String username = "Getting data...";
+  String cardNumber = "Getting data...";
+  String joinDate = "Getting data...";
+
+  late DateTime tempDate;
+
+  @override
+  void initState() {
+    super.initState();
+    SqliteService.getUser().then((user) {
+      setState(() {
+        username = user!.name;
+        cardNumber = user.cardNumber;
+
+        tempDate = DateFormat("yyyy-MM-dd hh:mm:ss").parse(user.joinDate);
+        joinDate = "${tempDate.month}/${tempDate.year}";
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,8 +108,8 @@ class CardDetailScreen extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "PATRICIA FIONA",
-                                style: TextStyle(
+                                username,
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 12,
                                     fontFamily: "OCR-A"
@@ -91,8 +118,8 @@ class CardDetailScreen extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.only(left: 16),
                                 child: Text(
-                                  "11/28",
-                                  style: TextStyle(
+                                  joinDate,
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 12,
                                       fontFamily: "OCR-A"
@@ -102,8 +129,8 @@ class CardDetailScreen extends StatelessWidget {
                             ],
                           ),
                           Text(
-                            "1234 5678 9012 3456",
-                            style: TextStyle(
+                            cardNumber,
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
                                 fontFamily: "OCR-A"

@@ -1,3 +1,4 @@
+import 'package:financial_app/data/local/model/User.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -27,9 +28,17 @@ class SqliteService{
         description TEXT NOT NULL
       )      
       """);
+
+    await database.execute("""CREATE TABLE IF NOT EXISTS User (
+        name String PRIMARY KEY NOT NULL,
+        joinDate String NOT NULL,
+        cardNumber String NOT NULL,
+        avatarString String NOT NULL
+      )      
+      """);
   }
 
-  static Future<int> insertToDatabase(Finance finance) async {
+  static Future<int> insertFinanceToDatabase(Finance finance) async {
     final db = await SqliteService.initializeDB();
 
     final id = await db.insert('Finance', finance.toMap(),
@@ -37,8 +46,33 @@ class SqliteService{
     return id;
   }
 
-  // Read all data
-  static Future<List<Finance>> getItems() async {
+  static Future<int> insertUserToDatabase(User user) async {
+    final db = await SqliteService.initializeDB();
+
+    final id = await db.insert('User', user.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
+    return id;
+  }
+
+  static Future<bool> isUserCreated() async {
+    final db = await SqliteService.initializeDB();
+
+    final List<Map<String, Object?>> queryResult = await db.query('User');
+    if(queryResult.map((e) => User.fromMap(e)).toList().isEmpty){
+      return false;
+    }else{
+      return true;
+    };
+  }
+
+  static Future<User> getUser() async {
+    final db = await SqliteService.initializeDB();
+
+    final List<Map<String, Object?>> queryResult = await db.query('User');
+    return queryResult.map((e) => User.fromMap(e)).toList().first;
+  }
+
+  static Future<List<Finance>> getFinanceItems() async {
     final db = await SqliteService.initializeDB();
 
     final List<Map<String, Object?>> queryResult = await db.query('Finance');

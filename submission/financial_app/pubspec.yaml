@@ -16,7 +16,8 @@ dependencies:
   intl: ^0.18.0
   sqflite: ^2.3.0
   syncfusion_flutter_datepicker: ^23.2.7
-  page_transition: "^2.1.0"
+  page_transition: ^2.1.0
+  random_avatar: ^0.0.8
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +40,7 @@ flutter:
     - assets/image/abstract_line.png
     - assets/image/finance_logo.png
     - assets/image/pattern_01.png
+    - assets/image/abstract_waterdrop.png
     - assets/icon/icon.png
 
   fonts:

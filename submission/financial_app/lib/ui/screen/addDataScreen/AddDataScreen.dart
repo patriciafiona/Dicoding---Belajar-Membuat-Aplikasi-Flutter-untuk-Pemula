@@ -306,7 +306,7 @@ class _MainContentState extends State<MainContent> {
                                 );
 
                                 //insert to database
-                                await SqliteService.insertToDatabase(data);
+                                await SqliteService.insertFinanceToDatabase(data);
 
                                 //Go to Home screen
                                 await Future.delayed(const Duration(milliseconds: 1500));
