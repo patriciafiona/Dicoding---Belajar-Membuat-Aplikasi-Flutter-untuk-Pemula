@@ -1,8 +1,12 @@
+import 'package:financial_app/ui/widget/TransactionItem.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../data/local/model/Finance.dart';
 import '../../../data/local/sqlite_service.dart';
+import '../../../utils/CurrencyFormat.dart';
 import '../../../utils/CustomColors.dart';
+import '../../../utils/Utils.dart';
 import '../../widget/TextWithIcon.dart';
 
 class CardDetailScreen extends StatefulWidget {
@@ -17,18 +21,54 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
   String cardNumber = "Getting data...";
   String joinDate = "Getting data...";
 
-  late DateTime tempDate;
+  DateTime tempDate = DateTime.now();
+
+  double currentBalance = 0.0;
+  double incomeSum = 0.0;
+  double outcomeSum = 0.0;
+  List<Finance> lastThreeTransaction = [];
 
   @override
   void initState() {
     super.initState();
     SqliteService.getUser().then((user) {
       setState(() {
-        username = user!.name;
-        cardNumber = user.cardNumber;
+        username = user.name;
+        var dataCardNum = user.cardNumber;
+        cardNumber = "${dataCardNum.substring(0, 4)} "
+            "${dataCardNum.substring(4, 8)} "
+            "${dataCardNum.substring(8, 12)} "
+            "${dataCardNum.substring(12, 16)}";
 
         tempDate = DateFormat("yyyy-MM-dd hh:mm:ss").parse(user.joinDate);
         joinDate = "${tempDate.month}/${tempDate.year}";
+      });
+    });
+
+    getCurrentBalance().then((balance) {
+      setState(() {
+        currentBalance = balance;
+      });
+    });
+
+    //Get current income
+    getTotalIncomeThisMonth().then((income) {
+      setState(() {
+        incomeSum = income;
+      });
+    });
+
+    //Get current outcome
+    getTotalOutcomeThisMonth().then((outcome) {
+      setState(() {
+        outcomeSum = outcome;
+      });
+    });
+
+    //Get last 3 transaction
+    SqliteService.getLastThreeTransactionItems().then((data) {
+      setState(() {
+        lastThreeTransaction = data;
       });
     });
   }
@@ -115,8 +155,32 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
                                     fontFamily: "OCR-A"
                                 ),
                               ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 32),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "MEMBER",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 5,
+                                          fontFamily: "OCR-A"
+                                      ),
+                                    ),
+                                    Text(
+                                      "SINCE",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 5,
+                                          fontFamily: "OCR-A"
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               Padding(
-                                padding: EdgeInsets.only(left: 16),
+                                padding: const EdgeInsets.only(left: 4),
                                 child: Text(
                                   joinDate,
                                   style: const TextStyle(
@@ -143,9 +207,9 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Expanded(
-            flex: 9,
+            flex: 10,
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -159,61 +223,74 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 16),
+                    padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextWithIcon(
+                        const TextWithIcon(
                             icon: Icons.balance,
                             iconColor: Colors.white,
                             text: "Total Balance",
-                            textSize: 20,
+                            textSize: 16,
                             textColor: Colors.white
                         ),
                         Text(
-                          "\$0",
-                          style: TextStyle(
+                          CurrencyFormat.convertToIdr(currentBalance, 2),
+                          style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 32,
+                              fontSize: 28,
                               fontWeight: FontWeight.bold
                           ),
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              "Income: ",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            "Detail income and outcome for ${returnCurrentMonth()}",
+                            style: const TextStyle(
+                              color: Colors.white38,
+                              fontSize: 10,
                             ),
-                            const SizedBox(width: 8),
-                            Text(
-                              "+ \$0.00",
-                              style: TextStyle(
-                                  color: Colors.lightGreenAccent,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: Row(
+                            children: [
+                              const Text(
+                                "Income: ",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 32),
-                            Text(
-                              "Outcome: ",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
+                              const SizedBox(width: 2),
+                              Text(
+                                "+ ${CurrencyFormat.convertToIdr(incomeSum, 2)}",
+                                style: const TextStyle(
+                                    color: Colors.lightGreenAccent,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              "+ \$0.00",
-                              style: TextStyle(
-                                  color: Colors.redAccent,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold
+                              const SizedBox(width: 20),
+                              const Text(
+                                "Outcome: ",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                ),
                               ),
-                            ),
-                          ],
+                              const SizedBox(width: 2),
+                              Text(
+                                "+ ${CurrencyFormat.convertToIdr(outcomeSum, 2)}",
+                                style: const TextStyle(
+                                    color: Colors.redAccent,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -221,9 +298,9 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
                   Expanded(
                     child: Container(
                       width: double.infinity,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.white,
-                          borderRadius: const BorderRadius.only(
+                          borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(30),
                               topRight: Radius.circular(30)
                           )
@@ -231,8 +308,28 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
+                            const Text(
+                              "Last Transaction",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w800
+                              ),
+                            ),
+                            Container(
+                              width: double.infinity,
+                              height: 170,
+                              padding: const EdgeInsets.only(top: 8, bottom: 32),
+                              child: ListView.builder(
+                                itemCount: lastThreeTransaction.length,
+                                itemBuilder: (context, index) {
+                                  final item = lastThreeTransaction[index];
+                                  return TransactionItem(data: item);
+                                },
+                              ),
+                            )
                           ],
                         ),
                       ),

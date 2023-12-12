@@ -43,6 +43,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
     return Scaffold(
       appBar: AppBar(
         backgroundColor: purpleHoneycreeper,
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text(
             'My Finance',

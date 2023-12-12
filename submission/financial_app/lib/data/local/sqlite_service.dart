@@ -78,4 +78,13 @@ class SqliteService{
     final List<Map<String, Object?>> queryResult = await db.query('Finance');
     return queryResult.map((e) => Finance.fromMap(e)).toList();
   }
+
+  static Future<List<Finance>> getLastThreeTransactionItems() async {
+    final db = await SqliteService.initializeDB();
+
+    final List<Map<String, Object?>> queryResult = await db.rawQuery(
+      "SELECT * from Finance ORDER BY dateTime DESC LIMIT 3"
+    );
+    return queryResult.map((e) => Finance.fromMap(e)).toList();
+  }
 }

@@ -311,7 +311,7 @@ class _MainContentState extends State<MainContent> {
                                 //Go to Home screen
                                 await Future.delayed(const Duration(milliseconds: 1500));
                                 widget.callback(false);
-                                await Navigator.push(
+                                await Navigator.pushReplacement(
                                     widget.context,
                                     PageTransition(type: PageTransitionType.fade, child: MainScreen())
                                 );
