@@ -75,7 +75,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
             physics: const NeverScrollableScrollPhysics(), // swipe navigation handling is not supported
             // controller: _tabController,
             controller: _motionTabBarController,
-            children: const <Widget>[
+            children: <Widget>[
               HomeTabScreen(),
               WalletTabScreen(),
               ChartTabScreen(),

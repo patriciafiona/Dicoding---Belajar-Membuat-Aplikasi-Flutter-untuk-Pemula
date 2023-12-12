@@ -31,6 +31,7 @@ class _AddDataScreenState extends State<AddDataScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: !isLoading,
         backgroundColor: purplishBlue,
         centerTitle: true,
         iconTheme: const IconThemeData(
