@@ -72,6 +72,17 @@ class SqliteService{
     return queryResult.map((e) => User.fromMap(e)).toList().first;
   }
 
+  static Future<void> updateUserData(User user) async {
+    final db = await SqliteService.initializeDB();
+
+    await db.update(
+      'User',
+      user.toMap(),
+      where: 'cardNumber = ?',
+      whereArgs: [user.cardNumber],
+    );
+  }
+
   static Future<List<Finance>> getFinanceItems() async {
     final db = await SqliteService.initializeDB();
 

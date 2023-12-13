@@ -11,14 +11,18 @@ import '../../../utils/CustomColors.dart';
 import '../../widget/TextWithIcon.dart';
 import '../main/MainScreen.dart';
 
-class CreateAccountScreen extends StatefulWidget {
+class CreateUpdateAccountScreen extends StatefulWidget {
+  final String action;
+  const CreateUpdateAccountScreen({super.key, required this.action});
+
   @override
-  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
+  State<CreateUpdateAccountScreen> createState() => _CreateUpdateAccountScreenState();
 }
 
-class _CreateAccountScreenState extends State<CreateAccountScreen> {
+class _CreateUpdateAccountScreenState extends State<CreateUpdateAccountScreen> {
   //Set avatar name
-  final String avatarName = DateTime.now().toIso8601String();
+  String avatarName = DateTime.now().toIso8601String();
+  String userJoinDate = DateFormat("yyyy-MM-dd hh:mm:ss").format(DateTime.now());
 
   //Set random card number
   var cardNumber = "";
@@ -28,18 +32,32 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(rnd.nextInt(_chars.length))));
 
-  @override
-  void initState() {
-    super.initState();
-    cardNumber = getRandomString(16);
-  }
-
   //Controller for text input
   final TextEditingController nameController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    cardNumber = getRandomString(16);
+
+    if(widget.action == "update"){
+      SqliteService.getUser().then((data) {
+        setState(() {
+          nameController.text = data.name;
+          cardNumber = data.cardNumber;
+          userJoinDate = data.joinDate;
+          avatarName = data.avatarString;
+        });
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white
+      ),
       body: Stack(
         children: [
           Positioned.fill(
@@ -62,14 +80,48 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const Spacer(),
-                RandomAvatar(
-                    avatarName,
-                    height: 80,
-                    width: 80
+                SizedBox(
+                  width: 90,
+                  height: 90,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: 0,
+                        child: RandomAvatar(
+                            avatarName,
+                            height: 80,
+                            width: 80
+                        ),
+                      ),
+                      Positioned(
+                        top: 60,
+                        left: 60,
+                        child: SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              setState(() {
+                                avatarName = DateTime.now().toIso8601String();
+                              });
+                            },
+                            fillColor: californiaGirl,
+                            padding: const EdgeInsets.all(2.0),
+                            shape: const CircleBorder(),
+                            child: const Icon(
+                              Icons.refresh,
+                              size: 12.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                const Text(
-                  "Create Account",
-                  style: TextStyle(
+                Text(
+                  widget.action == "create" ? "Create Account" : "Update Account",
+                  style: const TextStyle(
                     color: Colors.black,
                     fontSize: 28,
                     fontWeight: FontWeight.w900
@@ -122,25 +174,39 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 const SizedBox(height: 32),
                 ElevatedButton(
                     onPressed: () async {
-                      //set data
-                      var data = User(
-                          name: nameController.text,
-                          cardNumber: cardNumber.toString(),
-                          joinDate: DateFormat("yyyy-MM-dd hh:mm:ss").format(DateTime.now()),
-                          avatarString: avatarName
+                      if(widget.action == "update"){
+                        //set data
+                        var data = User(
+                            name: nameController.text,
+                            cardNumber: cardNumber.toString(),
+                            joinDate: userJoinDate,
+                            avatarString: avatarName
 
-                      );
+                        );
 
-                      //insert to database
-                      await SqliteService.insertUserToDatabase(data);
+                        //insert to database
+                        await SqliteService.updateUserData(data);
+                      }else if(widget.action == "create"){
+                        //set data
+                        var data = User(
+                            name: nameController.text,
+                            cardNumber: cardNumber.toString(),
+                            joinDate: userJoinDate,
+                            avatarString: avatarName
+
+                        );
+
+                        //insert to database
+                        await SqliteService.insertUserToDatabase(data);
+                      }
 
                       //Go to Home screen
-                      await Navigator.push(
+                      await Navigator.pushReplacement(
                           context,
                           PageTransition(type: PageTransitionType.fade, child: MainScreen())
                       );
                     },
-                    child: const Text("Create")
+                    child: Text(widget.action == "create" ? "Create" : "Update")
                 ),
                 const Spacer(),
               ],

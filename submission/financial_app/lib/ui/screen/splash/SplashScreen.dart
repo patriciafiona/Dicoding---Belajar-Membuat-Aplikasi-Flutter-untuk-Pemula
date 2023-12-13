@@ -1,6 +1,6 @@
 import 'package:financial_app/data/local/sqlite_service.dart';
-import 'package:financial_app/ui/screen/createAccount/CreateAccountScreen.dart';
 import 'package:financial_app/ui/screen/main/MainScreen.dart';
+import '../createUpdateAccount/CreateUpdateAccountScreen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -17,7 +17,7 @@ class SplashScreen extends StatelessWidget {
         if(status){
           Navigator.pushReplacement(context, PageTransition(type: PageTransitionType.fade, child: const MainScreen()));
         }else{
-          Navigator.pushReplacement(context, PageTransition(type: PageTransitionType.fade, child: CreateAccountScreen()));
+          Navigator.pushReplacement(context, PageTransition(type: PageTransitionType.fade, child: const CreateUpdateAccountScreen(action: "create")));
         }
       });
     });

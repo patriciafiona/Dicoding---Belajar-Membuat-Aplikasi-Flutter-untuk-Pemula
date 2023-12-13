@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:financial_app/ui/screen/AddDataScreen/AddDataScreen.dart';
 import 'package:financial_app/ui/screen/cardDetail/CardDetailScreen.dart';
+import 'package:financial_app/ui/widget/LottieAnimation.dart';
 import 'package:financial_app/ui/widget/RoundedButtonWithText.dart';
 import 'package:financial_app/utils/Utils.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:fl_chart/fl_chart.dart';
 
 import '../../../../utils/CurrencyFormat.dart';
 import '../../../../utils/CustomColors.dart';
+import '../../../widget/NoDataAnimation.dart';
 import '../../../widget/TextWithIcon.dart';
 
 class HomeTabScreen extends StatefulWidget {
@@ -196,9 +198,8 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 32),
-                        child: BarChart(
-                          mainBarData(),
-                        ),
+                        child: (incomeSum == 0 && outcomeSum == 0)  ?
+                          const NoDataAnimation(width: 150, height: 150, textColor: Colors.white) : BarChart(mainBarData()),
                       ),
                     ),
                   ],

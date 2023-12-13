@@ -1,3 +1,4 @@
+import 'package:financial_app/ui/widget/NoDataAnimation.dart';
 import 'package:financial_app/ui/widget/TransactionItem.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -322,13 +323,8 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
                               width: double.infinity,
                               height: 170,
                               padding: const EdgeInsets.only(top: 8, bottom: 32),
-                              child: ListView.builder(
-                                itemCount: lastThreeTransaction.length,
-                                itemBuilder: (context, index) {
-                                  final item = lastThreeTransaction[index];
-                                  return TransactionItem(data: item);
-                                },
-                              ),
+                              child: lastThreeTransaction.isNotEmpty ?
+                                LastThreeTransaction(lastThreeTransaction: lastThreeTransaction) : const NoDataAnimation(width: 100, height: 100, textColor: Colors.black),
                             )
                           ],
                         ),
@@ -342,6 +338,26 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class LastThreeTransaction extends StatelessWidget {
+  const LastThreeTransaction({
+    super.key,
+    required this.lastThreeTransaction,
+  });
+
+  final List<Finance> lastThreeTransaction;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: lastThreeTransaction.length,
+      itemBuilder: (context, index) {
+        final item = lastThreeTransaction[index];
+        return TransactionItem(data: item);
+      },
     );
   }
 }

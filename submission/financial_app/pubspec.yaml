@@ -38,6 +38,8 @@ flutter:
 
   assets:
     - assets/lottie/app_logo_animation.json
+    - assets/lottie/no_data_animation.json
+
     - assets/image/abstract_line.png
     - assets/image/finance_logo.png
     - assets/image/pattern_01.png
