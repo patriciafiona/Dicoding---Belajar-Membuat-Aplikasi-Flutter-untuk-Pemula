@@ -8,7 +8,7 @@ String returnCurrentMonth() {
 }
 
 Future<double> getTotalIncomeThisMonth() async {
-  var listData = await SqliteService.getFinanceItems();
+  var listData = await SqliteService.getFinanceHistory();
   var totalIncome = 0.0;
   for (var i=0; i<listData.length; i++){
     var tempDate = DateFormat("yyyy-MM-dd hh:mm:ss").parse(listData[i].dateTime);
@@ -22,7 +22,7 @@ Future<double> getTotalIncomeThisMonth() async {
 }
 
 Future<double> getTotalOutcomeThisMonth() async {
-  var listData = await SqliteService.getFinanceItems();
+  var listData = await SqliteService.getFinanceHistory();
   var totalOutcome = 0.0;
   for (var i=0; i<listData.length; i++){
     var tempDate = DateFormat("yyyy-MM-dd hh:mm:ss").parse(listData[i].dateTime);
@@ -36,7 +36,7 @@ Future<double> getTotalOutcomeThisMonth() async {
 }
 
 Future<double> getCurrentBalance() async {
-  var listData = await SqliteService.getFinanceItems();
+  var listData = await SqliteService.getFinanceHistory();
   var total = 0.0;
   for (var i=0; i<listData.length; i++){
     if(listData[i].category == "outcome"){

@@ -1,8 +1,7 @@
 import 'dart:math';
 
-import 'package:financial_app/ui/screen/AddDataScreen/AddDataScreen.dart';
+import 'package:financial_app/ui/screen/AddData/AddDataScreen.dart';
 import 'package:financial_app/ui/screen/cardDetail/CardDetailScreen.dart';
-import 'package:financial_app/ui/widget/LottieAnimation.dart';
 import 'package:financial_app/ui/widget/RoundedButtonWithText.dart';
 import 'package:financial_app/utils/Utils.dart';
 import 'package:flutter/material.dart';
@@ -309,8 +308,12 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
         rightTitles: const AxisTitles(
           sideTitles: SideTitles(showTitles: false),
         ),
-        topTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
+        topTitles: AxisTitles(
+          sideTitles: SideTitles(
+              showTitles: true,
+              getTitlesWidget: topTitles,
+              reservedSize: 20
+          ),
         ),
         bottomTitles: AxisTitles(
           sideTitles: SideTitles(
@@ -355,6 +358,27 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
       axisSide: meta.axisSide,
       space: 16,
       child: text,
+    );
+  }
+
+  Widget topTitles(double value, TitleMeta meta) {
+    const style = TextStyle(
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+      fontSize: 11,
+    );
+    String text;
+    if (value == 0) {
+      text = "${incomeSum/1000}K";
+    } else if (value == 1) {
+      text = "${outcomeSum/1000}K";
+    } else {
+      return Container();
+    }
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 5,
+      child: Text(text, style: style),
     );
   }
 }

@@ -30,23 +30,23 @@ class _AddDataScreenState extends State<AddDataScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: !isLoading,
-        backgroundColor: purplishBlue,
-        centerTitle: true,
-        iconTheme: const IconThemeData(
-          color: Colors.white, //change your color here
-        ),
-        title: const Text(
-          'Add Data',
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold
+        appBar: AppBar(
+          automaticallyImplyLeading: !isLoading,
+          backgroundColor: purplishBlue,
+          centerTitle: true,
+          iconTheme: const IconThemeData(
+            color: Colors.white, //change your color here
+          ),
+          title: const Text(
+            'Add Data',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold
+            ),
           ),
         ),
-      ),
-      body: isLoading ? LoadingContainer() : MainContent(context: context, type: widget.type, callback: (val) => setState(() => isLoading = val))
+        body: isLoading ? LoadingContainer() : MainContent(context: context, type: widget.type, callback: (val) => setState(() => isLoading = val))
     );
   }
 }
@@ -333,5 +333,3 @@ class _MainContentState extends State<MainContent> {
     );
   }
 }
-
-

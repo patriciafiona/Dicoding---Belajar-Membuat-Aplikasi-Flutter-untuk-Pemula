@@ -1,4 +1,3 @@
-import 'package:financial_app/ui/screen/main/ChartTabScreen/ChartTabScreen.dart';
 import 'package:financial_app/ui/screen/main/HomeTabScreen/HomeTabScreen.dart';
 import 'package:financial_app/ui/screen/main/SettingTabScreen/SettingTabScreen.dart';
 import 'package:financial_app/ui/screen/main/WalletTabScreen/WalletTabScreen.dart';
@@ -53,20 +52,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
             fontWeight: FontWeight.bold
           ),
         ),
-        actions: [
-          RawMaterialButton(
-            onPressed: () {},
-            elevation: 2.0,
-            fillColor: purpleIllusionist,
-            padding: const EdgeInsets.all(10.0),
-            shape: const CircleBorder(),
-            child: const Icon(
-              Icons.notifications,
-              size: 18.0,
-              color: Colors.white,
-            ),
-          )
-        ],
       ),
       body: Container(
         color: purpleHoneycreeper,
@@ -77,9 +62,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
             controller: _motionTabBarController,
             children: <Widget>[
               HomeTabScreen(),
-              WalletTabScreen(),
-              ChartTabScreen(),
-              SettingTabScreen(),
+              const WalletTabScreen(),
+              const SettingTabScreen(),
             ],
           ),
         ),
@@ -87,8 +71,8 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
       bottomNavigationBar: MotionTabBar(
         controller: _motionTabBarController, // ADD THIS if you need to change your tab programmatically
         initialSelectedTab: "Home",
-        labels: const ["Home", "Wallet", "Chart", "Settings"],
-        icons: const [Icons.home, Icons.wallet, Icons.pie_chart, Icons.settings],
+        labels: const ["Home", "Wallet", "Settings"],
+        icons: const [Icons.home, Icons.wallet, Icons.settings],
         tabSize: 50,
         tabBarHeight: 55,
         textStyle: const TextStyle(

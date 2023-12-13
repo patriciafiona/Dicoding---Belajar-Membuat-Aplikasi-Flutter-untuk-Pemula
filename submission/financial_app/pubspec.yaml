@@ -19,6 +19,7 @@ dependencies:
   page_transition: ^2.1.0
   random_avatar: ^0.0.8
   package_info_plus: ^5.0.1
+  flutter_slidable: ^0.6.0
 
 dev_dependencies:
   flutter_test:

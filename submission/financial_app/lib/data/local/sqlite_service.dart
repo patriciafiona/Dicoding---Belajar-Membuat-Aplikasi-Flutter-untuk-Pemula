@@ -83,10 +83,23 @@ class SqliteService{
     );
   }
 
-  static Future<List<Finance>> getFinanceItems() async {
+  static Future<void> updateTransactionData(Finance finance) async {
     final db = await SqliteService.initializeDB();
 
-    final List<Map<String, Object?>> queryResult = await db.query('Finance');
+    await db.update(
+      'Finance',
+      finance.toMap(),
+      where: 'id = ?',
+      whereArgs: [finance.id],
+    );
+  }
+
+  static Future<List<Finance>> getFinanceHistory() async {
+    final db = await SqliteService.initializeDB();
+
+    final List<Map<String, Object?>> queryResult = await db.rawQuery(
+        "SELECT * from Finance ORDER BY dateTime DESC"
+    );
     return queryResult.map((e) => Finance.fromMap(e)).toList();
   }
 
@@ -98,4 +111,15 @@ class SqliteService{
     );
     return queryResult.map((e) => Finance.fromMap(e)).toList();
   }
+
+  static Future<void> deleteTransaction(int id) async {
+    final db = await SqliteService.initializeDB();
+
+    await db.delete(
+      'Finance',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
 }
