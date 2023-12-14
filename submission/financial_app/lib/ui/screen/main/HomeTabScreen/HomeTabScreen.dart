@@ -62,9 +62,12 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
+      width: screenWidth,
+      height: screenHeight,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -98,7 +101,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
           Expanded(
             flex: 8,
             child: Container(
-              width: double.infinity,
+              width: screenWidth,
               decoration: BoxDecoration(
                 color: purplishBlue,
                 borderRadius: const BorderRadius.only(
@@ -198,7 +201,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 32),
                         child: (incomeSum == 0 && outcomeSum == 0)  ?
-                          const NoDataAnimation(width: 150, height: 150, textColor: Colors.white) : BarChart(mainBarData()),
+                        NoDataAnimation(width: screenWidth * 0.3, height: screenWidth * 0.3, textColor: Colors.white) : BarChart(mainBarData()),
                       ),
                     ),
                   ],

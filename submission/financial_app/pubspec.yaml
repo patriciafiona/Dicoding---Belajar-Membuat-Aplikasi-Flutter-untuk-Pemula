@@ -1,6 +1,6 @@
 name: financial_app
 description: "App for tracking your income & expense"
-version: 1.0.0
+version: 1.0.1
 
 environment:
   sdk: '>=3.2.0 <4.0.0'

@@ -24,7 +24,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
 
     _motionTabBarController = MotionTabBarController(
       initialIndex: 0,
-      length: 4,
+      length: 3,
       vsync: this,
     );
   }
@@ -32,8 +32,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin{
   @override
   void dispose() {
     super.dispose();
-
-    // _tabController.dispose();
     _motionTabBarController!.dispose();
   }
 

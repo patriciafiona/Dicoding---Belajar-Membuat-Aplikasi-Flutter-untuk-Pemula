@@ -40,9 +40,12 @@ class _WalletTabScreenState extends State<WalletTabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return Container(
-      width: double.infinity,
-      height: double.infinity,
+      width: width,
+      height: height,
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,9 +59,9 @@ class _WalletTabScreenState extends State<WalletTabScreen> {
             ),
           ),
           Container(
-            width: double.infinity,
-            height: 600,
-            padding: const EdgeInsets.only(top: 8, bottom: 32),
+            width: width,
+            height: height * 0.68,
+            padding: const EdgeInsets.only(top: 8, bottom: 8),
             child: transactionList.isNotEmpty ?
             TransactionList(data: transactionList, notifyParent: refresh) : const NoDataAnimation(width: 250, height: 250, textColor: Colors.white),
           ),

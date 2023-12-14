@@ -166,23 +166,26 @@ class _SettingTabScreenState extends State<SettingTabScreen> {
           ),
           const Spacer(),
           Center(
-            child: Column(
-              children: [
-                Text(
-                  "My Finance v${_packageInfo.version}",
-                  style: const TextStyle(
-                      color: Colors.white60,
-                      fontSize: 12
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Column(
+                children: [
+                  Text(
+                    "My Finance v${_packageInfo.version}",
+                    style: const TextStyle(
+                        color: Colors.white60,
+                        fontSize: 10
+                    ),
                   ),
-                ),
-                Text(
-                  "Patricia Fiona ©${DateTime.now().year} | All right reserved",
-                  style: const TextStyle(
-                      color: Colors.white60,
-                      fontSize: 10
+                  Text(
+                    "Patricia Fiona ©${DateTime.now().year} | All right reserved",
+                    style: const TextStyle(
+                        color: Colors.white60,
+                        fontSize: 8
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
