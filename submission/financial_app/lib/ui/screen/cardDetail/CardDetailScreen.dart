@@ -76,6 +76,9 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: purpleHoneycreeper,
@@ -94,8 +97,8 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
       ),
       backgroundColor: purpleHoneycreeper,
       body: SizedBox(
-        width: double.infinity,
-        height: double.infinity,
+        width: screenWidth,
+        height: screenHeight,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,12 +129,12 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
                     Image.asset(
                       "assets/image/abstract_line.png",
                       width: 300,
-                      height: 200,
+                      height: 170,
                       opacity: const AlwaysStoppedAnimation(.2),
                     ),
                     Container(
                       width: 300,
-                      height: 200,
+                      height: 170,
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -210,9 +213,9 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
             ),
             const Spacer(),
             Expanded(
-            flex: 10,
+            flex: 9,
             child: Container(
-              width: double.infinity,
+              width: screenWidth,
               decoration: BoxDecoration(
                 color: purplishBlue,
                 borderRadius: const BorderRadius.only(
@@ -298,7 +301,7 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
                   ),
                   Expanded(
                     child: Container(
-                      width: double.infinity,
+                      width: screenWidth,
                       decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -319,12 +322,12 @@ class _CardDetailScreenState extends State<CardDetailScreen> {
                                 fontWeight: FontWeight.w800
                               ),
                             ),
-                            Container(
-                              width: double.infinity,
-                              height: 170,
-                              padding: const EdgeInsets.only(top: 8, bottom: 32),
-                              child: lastThreeTransaction.isNotEmpty ?
-                                LastThreeTransaction(lastThreeTransaction: lastThreeTransaction) : const NoDataAnimation(width: 100, height: 100, textColor: Colors.black),
+                            Flexible(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8, bottom: 32),
+                                child: lastThreeTransaction.isNotEmpty ?
+                                  LastThreeTransaction(lastThreeTransaction: lastThreeTransaction) : NoDataAnimation(width: 100, height: 100, textColor: Colors.black),
+                              ),
                             )
                           ],
                         ),

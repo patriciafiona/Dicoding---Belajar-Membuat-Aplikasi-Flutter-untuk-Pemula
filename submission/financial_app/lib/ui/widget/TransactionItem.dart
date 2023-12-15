@@ -72,6 +72,7 @@ class TransactionItem extends StatelessWidget {
                     fontSize: 12,
                     fontWeight: FontWeight.bold
                 ),
+                textAlign: TextAlign.end,
               ),
             ),
           ),

@@ -199,9 +199,9 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 32),
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                         child: (incomeSum == 0 && outcomeSum == 0)  ?
-                        NoDataAnimation(width: screenWidth * 0.3, height: screenWidth * 0.3, textColor: Colors.white) : BarChart(mainBarData()),
+                        NoDataAnimation(width: screenWidth * 0.25, height: screenWidth * 0.25, textColor: Colors.white) : BarChart(mainBarData()),
                       ),
                     ),
                   ],
