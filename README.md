@@ -62,14 +62,16 @@ Project link                : [Repository link](https://github.com/patriciafiona
 
 If you like the app design, please give like to these designs as my submission app inspiration:
 - [Mobile Banking App by Mohammad Jabel](https://dribbble.com/shots/23155272-Mobile-Banking-App)
-- [Money Transferring App Concept by Eugene Machiavelli](https://dribbble.com/shots/23155272-Mobile-Banking-App)
+- [Money Transferring App Concept by Eugene Machiavelli](https://dribbble.com/shots/16089833-Money-Transferring-App-Concept)
 
-## My Project Result (will be fixed later...)
+## My Project Result
 
 <p align="center">
-   <img src="https://github.com/patriciafiona/Dicoding---Belajar-Membuat-Aplikasi-Flutter-untuk-Pemula/assets/32255348/34bad826-a368-4086-b8c6-70815bc80897" width="700"/>
+   <img src="https://github.com/patriciafiona/Dicoding---Belajar-Membuat-Aplikasi-Flutter-untuk-Pemula/assets/32255348/0ac1c10d-ce8a-48c9-95de-3508ec3967b6" width="700"/>
 </p>
 <p align="center"><i><b>Figure 5</b> Youtube Video Banner</i></p>
+
+This is the video link: [Click here...](https://www.youtube.com/watch?v=ROHz2-rwThI&ab_channel=PatriciaFiona)
 
 ## Submission App Result
 | Function      | Result Preview  | Function      | Result Preview  |
